@@ -1,0 +1,23 @@
+Impact of large data breaches and their causes:
+
+Highlights the often lackluster methods used to protect consumer data.
+
+Privacy rights clearinghouse:
+https://www.privacyrights.org/data-breaches?title=&breach_type%5B%5D=285&breach_type%5B%5D=268&breach_type%5B%5D=267&breach_type%5B%5D=264&breach_type%5B%5D=265&breach_type%5B%5D=266&breach_type%5B%5D=269&breach_type%5B%5D=270&org_type%5B%5D=260&org_type%5B%5D=262&org_type%5B%5D=261&org_type%5B%5D=259&org_type%5B%5D=257&org_type%5B%5D=258&org_type%5B%5D=263&taxonomy_vocabulary_11_tid%5B%5D=2436&taxonomy_vocabulary_11_tid%5B%5D=2434&taxonomy_vocabulary_11_tid%5B%5D=2257&taxonomy_vocabulary_11_tid%5B%5D=2122&taxonomy_vocabulary_11_tid%5B%5D=1473&taxonomy_vocabulary_11_tid%5B%5D=1153&taxonomy_vocabulary_11_tid%5B%5D=513&taxonomy_vocabulary_11_tid%5B%5D=306&taxonomy_vocabulary_11_tid%5B%5D=276&taxonomy_vocabulary_11_tid%5B%5D=275&taxonomy_vocabulary_11_tid%5B%5D=274&taxonomy_vocabulary_11_tid%5B%5D=273&taxonomy_vocabulary_11_tid%5B%5D=272&taxonomy_vocabulary_11_tid%5B%5D=271
+
+
+Information is Beautiful:
+http://www.informationisbeautiful.net/visualizations/worlds-biggest-data-breaches-hacks/
+
+Information is Beautiful source data:
+https://docs.google.com/spreadsheets/d/1Je-YUdnhjQJO_13r8iTeRxpU2pBKuV6RVRHoYCgiMfg/edit#gid=322165570
+
+Rdatasets
+https://vincentarelbundock.github.io/Rdatasets/datasets.html
+
+Identity Theft Resource Center:
+https://www.idtheftcenter.org/images/breach/2017Breaches/ITRCBreachReport2017.pdf
+https://www.idtheftcenter.org/2017-data-breaches.html
+
+California Attorney General:
+https://oag.ca.gov/privacy/databreach/list
