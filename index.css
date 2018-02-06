@@ -5,6 +5,12 @@ body {
   font-size: 14px;
 }
 
+#titles{
+    position: relative;
+    //left: 450px;
+    text-align: center;
+}
+
 text {
   cursor: default;
 }
@@ -23,14 +29,20 @@ text {
 
 /* stying the table */
 #credits{
-    background-color: #C0C5CE;
-    width: 1000px;
+    background-color: lightgray;
+    width: 1030px;
     position: relative;
-    left: 25px;
+    //left: 25px;
+    margin: auto;
+}
+
+table{
+    margin:auto;
+    //left: 50px;
 }
 
 th, td{
-  width: 420px;
+  width: 600px;
 }
 
 #header{
@@ -38,14 +50,14 @@ th, td{
 }
 
 .lastcolumn{
-    width: 250px;
+    width: 270px;
 }
 
 .firstcolumn{
-    width: 250px;
+    width: 270px;
 }
 .secondcolumn{
-    width: 500px;
+    width: 270px;
 }
 
 .selected {
