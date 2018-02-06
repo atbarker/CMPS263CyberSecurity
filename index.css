@@ -1,1 +1,53 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-left:40px;
+  font-weight: 200;
+  font-size: 14px;
+}
 
+text {
+  cursor: default;
+}
+
+h1 {
+  font-weight: 400;
+}
+
+#chart {
+  height: 506px;
+}
+
+text {
+  font-size: 10px;
+}
+
+/* stying the table */
+#credits{
+    background-color: #C0C5CE;
+    width: 1000px;
+    position: relative;
+    left: 25px;
+}
+
+th, td{
+  width: 420px;
+}
+
+#header{
+    font-size: 16px;
+}
+
+.lastcolumn{
+    width: 250px;
+}
+
+.firstcolumn{
+    width: 250px;
+}
+.secondcolumn{
+    width: 500px;
+}
+
+.selected {
+  stroke-width: 4;
+}
