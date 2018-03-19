@@ -1,4 +1,4 @@
-//This Should be the top scatterplot
+//Bottom graph
 
 d3.csv("scatterdata.csv", function(d) {
     return{
