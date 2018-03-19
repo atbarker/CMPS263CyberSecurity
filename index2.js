@@ -33,7 +33,7 @@ d3.csv("scatterdata.csv", function(d) {
     //     .on("zoom", zoomed);
 
     //Define SVG
-    var svg = d3.select("body")
+    var svg = d3.select("bottom")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
