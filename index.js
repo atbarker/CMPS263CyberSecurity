@@ -45,7 +45,7 @@ d3.csv("scatterdata.csv", function(d) {
         // .call(zoom);
     
     //Define Tooltip here
-    var tooltip = d3.select("body").append("div")   
+    var tooltip = d3.select("#top").append("div")   
         .attr("class", "tooltip")               
         .style("opacity", 0);
       
