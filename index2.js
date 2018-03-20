@@ -1,12 +1,15 @@
 //Bottom graph
 
-d3.csv("scatterdata.csv", function(d) {
+d3.csv("databreaches.csv", function(d) {
     return{
-        country : d.country,
-        gdp : +d.gdp,
-        population : +d.population,
-        epc : +d.ecc,
-        ec : +d.ec
+        entity : d.Entity,
+        alternative_name : d.alternative_name,
+        year : +d.year,
+        records_lost : +d.records_lost,
+		organization : d.organization, 
+		breach_cause : d.breach_cause,
+		records_rounded : +d.records_rounded,
+		severity : + d.severity
     };
 }, function(data){
     //Define Margin
@@ -65,12 +68,12 @@ d3.csv("scatterdata.csv", function(d) {
         .attr("r", function(d) { return Math.sqrt(d.ec)/.2; })
         .attr("cx", function(d) {return xScale(d.gdp);})
         .attr("cy", function(d) {return yScale(d.epc);})
-        .style("fill", function (d) { return colors(d.country); })
+        .style("fill", function (d) { return colors(d.severity); })
         .on("mouseover", function(d) {      
             tooltip.transition()        
                 .duration(200)      
                 .style("opacity", .9);      
-            tooltip.html(d.country + "<br/>Population: "  + d.population + " Million<br/>GDP: $" + d.gdp + " Trillion<br/>EPC: " + d.epc + " Million BTUs<br/>Total: " + d.ec + " Trillion BTUs")   
+            tooltip.html(d.entity + "<br/>Population: "  + d.population + " Million<br/>GDP: $" + d.gdp + " Trillion<br/>EPC: " + d.epc + " Million BTUs<br/>Total: " + d.ec + " Trillion BTUs")   
                 .style("left", (d3.event.pageX) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px");    
         })                  
