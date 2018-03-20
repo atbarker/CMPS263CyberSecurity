@@ -45,7 +45,7 @@ d3.csv("databreaches.csv", function(data) {
         width = 960 - margin.left -margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    //Define Color
+    //Define Color//TODO fix color
     var colors = d3.scaleOrdinal(d3.schemeCategory20);
  
     //Define Scales   
