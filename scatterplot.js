@@ -33,11 +33,11 @@ d3.csv("databreaches.csv", function(d) {
         .domain([0,d3.max(data, function(d){return d.records_rounded;})]) //Need to redfine this after loading the data
         .range([height, 0]);
 
-    //var zoom = d3.behavior.zoom()
-     //   .x(xScale)
-     //   .y(yScale)
-     //   .scaleExtent([1, 32])
-     //   .on("zoom", zoomed);
+    var zoom = d3.behavior.zoom()
+        .x(xScale)
+        .y(yScale)
+        .scaleExtent([1, 32])
+        .on("zoom", zoomed);
 
     //Define SVG
     var svg = d3.select("body")
@@ -45,8 +45,8 @@ d3.csv("databreaches.csv", function(d) {
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-        //.call(zoom);
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .call(zoom);
     
     //Define Tooltip here
     var tooltip = d3.select("body").append("div")	
@@ -187,14 +187,14 @@ d3.csv("databreaches.csv", function(d) {
         .text("Total Energy Consumption");*/
     
     //redraw and scale depending on the zoom
-    /*function zoomed() {
+    function zoomed() {
         svg.select(".x.axis").call(xAxis);
         svg.select(".y.axis").call(yAxis);
         svg.select(".dots")
             .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         svg.select(".text")
             .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-    }*/
+    }
     
     //some code to handle scaling the circles
     /*
