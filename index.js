@@ -43,7 +43,7 @@ d3.csv("databreaches.csv", function(data) {
     //Define Margin
 	//console.log(data);
     var margin = {left: 80, right: 80, top: 50, bottom: 50 }, 
-        width = 960 - margin.left -margin.right,
+        width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
     //Define Color//TODO fix color
@@ -56,11 +56,13 @@ d3.csv("databreaches.csv", function(data) {
     	.range(d3.schemeOrRd[9]);
 	*/
  
-    //Define Scales   
+    //Define Scales  
+	//console.log(d3.min(data, function(d) {return d.year; })); 
 	var xScale = d3.scaleLinear()
-    	.domain([d3.min(data, function(d) {return d.year; }),d3.max(data, function(d) {return d.year; })]) 
+    	.domain([d3.min(data, function(d) {return d.year; }),d3.max(data, function(d) {return d.year;})]) 
    	 .range([0, width]);
 
+	 //console.log(d3.max(data, function(d) {return d.records_lost; }));
 	 var yScale = d3.scaleLinear()
    		.domain([0,d3.max(data, function(d) {return d.records_lost; })]) 
     	.range([height, 0]);
