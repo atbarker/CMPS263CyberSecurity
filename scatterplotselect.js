@@ -31,6 +31,7 @@ d3.csv('databreaches.csv',function (data) {
   var w = 1700 - margin.left - margin.right
   // Scales
   var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
+  //var colorScale = d3.scaleSequential(d3.YlOrRd);
   var xScale = d3.scaleLinear()
     .domain([2004, 2018])
     .range([0,w])
