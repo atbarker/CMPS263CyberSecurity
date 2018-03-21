@@ -1,6 +1,10 @@
 /*
 Worked with Staunton Sample and Matt Bryson
 */
+//This is what will show up in the dropdown
+var selectData = [ { "text" : "Records Rounded" },
+                     { "text" : "Severity" },
+                     { "text" : "Impact" }]
 
 //Get Data
 d3.csv("databreaches.csv", function(d) {
@@ -17,6 +21,7 @@ d3.csv("databreaches.csv", function(d) {
         impact : +d.severity * +d.records_lost
     };
 }, function(data){
+    
     //Define Margin
     var margin = {left: 80, right: 80, top: 50, bottom: 50 }, 
         width = 960 - margin.left -margin.right,
@@ -84,6 +89,7 @@ d3.csv("databreaches.csv", function(d) {
                 .duration(500)		
                 .style("opacity", 0);	
         });
+    
     
     //Scale Changes as we Zoom
     // Call the function d3.behavior.zoom to Add zoom
@@ -219,6 +225,7 @@ d3.csv("databreaches.csv", function(d) {
           return "5: Full Bank Account Details";
       }  
    })
+    
     
    /* //redraw and scale depending on the zoom
     function zoomed() {
