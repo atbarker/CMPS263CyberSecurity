@@ -1,14 +1,17 @@
 d3.csv('databreaches.csv',function (data) {
 // CSV section
   var body = d3.select('body')
-  var selectData = [ { "text" : "records lost" },
-                     { "text" : "severity" },
-                     { "text" : "impact" },
+  var selectData = [ { "text" : "all" },
+                     { "text" : "1" },
+                     { "text" : "2" },
+                    { "text" : "3" },
+                    { "text" : "4" },
+                    { "text" : "5" },
                    ]
 
   // Select Y-axis Variable
   var span = body.append('span')
-      .text('Select Y-Axis variable: ')
+      .text('Select Sensitivity: ')
   var yInput = body.append('select')
       .attr('id','ySelect')
       .on('change',yChange)
@@ -37,7 +40,7 @@ d3.csv('databreaches.csv',function (data) {
   var yScale = d3.scaleLinear()
     .domain([
       0,
-      1000000
+      4000000
       ])
     .range([h,0])
   // SVG
@@ -60,7 +63,7 @@ d3.csv('databreaches.csv',function (data) {
       .enter()
     .append('circle')
       .attr('cx',function (d) { return xScale(d['year']) })
-      .attr('cy',function (d) { return yScale(d['records_rounded']) })
+      .attr('cy',function (d) { return yScale(d['impact']) })
       .attr('r', function(d) { return Math.sqrt(d['records_rounded'])/.2/100; })
       .attr('fill',function (d) { return colorScale(d.severity); })
       .on('mouseover', function () {
@@ -104,7 +107,7 @@ d3.csv('databreaches.csv',function (data) {
       .attr('x',w)
       .attr('dy','.71em')
       .style('text-anchor','end')
-      .text('Annualized Return')
+      .text('Year')
   // Y-axis
   svg.append('g')
       .attr('class','axis')
@@ -117,7 +120,7 @@ d3.csv('databreaches.csv',function (data) {
       .attr('y',5)
       .attr('dy','.71em')
       .style('text-anchor','end')
-      .text('Annualized Return')
+      .text('Impact (severity * number of records)')
     
     
   var legend = svg.selectAll(".legend")
@@ -153,23 +156,13 @@ d3.csv('databreaches.csv',function (data) {
       }  
    })
     
-
-  function yChange() {
-    var value = this.value // get the new y value
-    yScale // change the yScale
-      .domain([
-        0,
-        d3.max(data,function (d) { if(value == 'records lost'){return 1000000;}else if(value == 'impact'){return 4000000;}else{return 5;} })
-        ])
-    yAxis.scale(yScale) // change the yScale
-    d3.select('#yAxis') // redraw the yAxis
-      .transition().duration(1)
-      .call(yAxis)
-    d3.select('#yAxisLabel') // change the yAxisLabel
-      .text(value)    
-    d3.selectAll('circle') // move the circles
+    function yChange(){
+       var stuff = this.value;
+       d3.selectAll('circle') // move the circles
       .transition().duration(1)
       .delay(function (d,i) { return i*10})
-        .attr('cy',function (d) { if(value == 'records lost'){return yScale(d["records_rounded"]);}else{return yScale(d[value]);} })
-  }
+        .attr('cy',function (d) { if(d['severity'] == stuff){return yScale(d["impact"])}else if(stuff == 'all'){return yScale(d["impact"])}else{return 0;} })
+       .attr('cx',function (d) { if(d['severity'] == stuff){return xScale(d["year"])}else if(stuff == 'all'){return xScale(d["year"])}else{return 0;} })
+       .attr('r',function (d) { if(d['severity'] == stuff){return Math.sqrt(d['records_rounded'])/.2/100;}else if(stuff == 'all'){return Math.sqrt(d['records_rounded'])/.2/100;}else{return 0;} })
+   }
 })

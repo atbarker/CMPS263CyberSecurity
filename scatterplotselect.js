@@ -1,14 +1,17 @@
 d3.csv('databreaches.csv',function (data) {
 // CSV section
   var body = d3.select('body')
-  var selectData = [ { "text" : "records lost" },
-                     { "text" : "severity" },
-                     { "text" : "impact" },
+  var selectData = [ { "text" : "all" },
+                     { "text" : "inside job" },
+                     { "text" : "hacked" },
+                     { "text" : "lost / stolen device or media" },
+                     { "text" : "poor security"},
+                     { "text" : "accidentally published"}
                    ]
 
   // Select Y-axis Variable
   var span = body.append('span')
-      .text('Select Y-Axis variable: ')
+      .text('Select Breach Cause: ')
   var yInput = body.append('select')
       .attr('id','ySelect')
       .on('change',yChange)
@@ -105,7 +108,7 @@ d3.csv('databreaches.csv',function (data) {
       .attr('x',w)
       .attr('dy','.71em')
       .style('text-anchor','end')
-      .text('Annualized Return')
+      .text('Year')
   // Y-axis
   svg.append('g')
       .attr('class','axis')
@@ -118,7 +121,7 @@ d3.csv('databreaches.csv',function (data) {
       .attr('y',5)
       .attr('dy','.71em')
       .style('text-anchor','end')
-      .text('Annualized Return')
+      .text('Size of Breach (x1000 records)')
     
     
   var legend = svg.selectAll(".legend")
@@ -155,7 +158,7 @@ d3.csv('databreaches.csv',function (data) {
    })
     
 
-  function yChange() {
+  /*function yChange() {
     var value = this.value // get the new y value
     yScale // change the yScale
       .domain([
@@ -172,5 +175,14 @@ d3.csv('databreaches.csv',function (data) {
       .transition().duration(1)
       .delay(function (d,i) { return i*10})
         .attr('cy',function (d) { if(value == 'records lost'){return yScale(d["records_rounded"]);}else{return yScale(d[value]);} })
-  }
+  }*/
+   function yChange(){
+       var value = this.value;
+       d3.selectAll('circle') // move the circles
+      .transition().duration(1)
+      .delay(function (d,i) { return i*10})
+        .attr('cy',function (d) { if(d['breach_cause'] == value){return yScale(d["records_rounded"])}else if(value == 'all'){return yScale(d["records_rounded"])}else{return 0;} })
+       .attr('cx',function (d) { if(d['breach_cause'] == value){return xScale(d["year"])}else if(value == 'all'){return xScale(d["year"])}else{return 0;} })
+       .attr('r',function (d) { if(d['breach_cause'] == value){return Math.sqrt(d['records_rounded'])/.2/100;}else if(value == 'all'){return Math.sqrt(d['records_rounded'])/.2/100;}else{return 0;} })
+   }
 })
