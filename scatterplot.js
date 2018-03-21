@@ -22,7 +22,7 @@ d3.csv("databreaches.csv", function(d) {
         height = 500 - margin.top - margin.bottom;
 
     //Define Color
-     var colors = d3.scaleOrdinal(d3.schemeCategory20);
+    var colors = d3.scaleOrdinal(d3.schemeCategory20);
  
     //Define Scales   
     var xScale = d3.scaleLinear()
@@ -33,10 +33,11 @@ d3.csv("databreaches.csv", function(d) {
         .domain([0,d3.max(data, function(d){return d.records_rounded;})]) //Need to redfine this after loading the data
         .range([height, 0]);
 
-	var zoom = d3.zoom()
-        .scaleExtent([1, 32])
-        .on("zoom", zoomed);
-	
+    //var zoom = d3.zoom()
+     //   .x(xScale)
+      //  .y(yScale)
+     //   .scaleExtent([1, 32])
+      //  .on("zoom", zoomed);
 
     //Define SVG
     var svg = d3.select("body")
@@ -44,8 +45,8 @@ d3.csv("databreaches.csv", function(d) {
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .call(zoom);
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        //.call(zoom);
     
     //Define Tooltip here
     var tooltip = d3.select("body").append("div")	
@@ -53,8 +54,8 @@ d3.csv("databreaches.csv", function(d) {
         .style("opacity", 0);
       
     //Define Axis
-    var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickPadding(2);
-    var yAxis = d3.svg.axis().scale(yScale).orient("left").tickPadding(2);
+    var xAxis = d3.axisBottom(xScale).tickPadding(2);
+    var yAxis = d3.axisLeft(yScale).tickPadding(2);
     // Define domain for xScale and yScale
     //xScale.domain([-width /2, width/2]);
     //yScale.domain([-height /2, height/2]);
@@ -184,8 +185,41 @@ d3.csv("databreaches.csv", function(d) {
         .style("fill", "Green") 
         .attr("font-size", "16px")
         .text("Total Energy Consumption");*/
+      // draw legend
+  var legend = svg.selectAll(".legend")
+      .data(colors.domain())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  // draw legend colored rectangles
+  legend.append("rect")
+      .attr("x", width + 60)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", colors);
+
+  // draw legend text
+  legend.append("text")
+      .attr("x", width + 60)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) {
+      if (d == 1){
+        return "1: Email Addresses";
+      }else if(d == 2){
+          return "2: SSN/Personal Details";
+      }else if(d == 3){
+          return "3: Credit Card info";
+      }else if(d == 4){
+          return "4: Email password/Health Records";
+      }else if(d == 5){
+          return "5: Full Bank Account Details";
+      }  
+   })
     
-    //redraw and scale depending on the zoom
+   /* //redraw and scale depending on the zoom
     function zoomed() {
         svg.select(".x.axis").call(xAxis);
         svg.select(".y.axis").call(yAxis);
@@ -193,7 +227,7 @@ d3.csv("databreaches.csv", function(d) {
             .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         svg.select(".text")
             .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-    }
+    }*/
     
     //some code to handle scaling the circles
     /*
