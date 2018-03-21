@@ -133,7 +133,7 @@ d3.csv('databreaches.csv',function (data) {
       .attr("class", "legend")
       .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-	  
+	  console.log(colorScale);
 // Add a legend for the color values.
   var legend = svg.selectAll(".legend")
       .data(colorScale.ticks(5).slice(1).reverse())
