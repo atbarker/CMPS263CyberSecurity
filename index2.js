@@ -1,4 +1,4 @@
-//This Should be the top scatterplot
+//This Should be the bottom scatterplot
 
 d3.csv("databreaches.csv", function(data) {
 	//TODO make this threshold user selectable
@@ -15,7 +15,8 @@ d3.csv("databreaches.csv", function(data) {
 	var top_breaches = [];
 	//console.log(data.length);
 	for (var i = 0; i < data.length; i++) {
-		//TODO create impact score metric based on severity * number of records
+		//TODO create impact score metric based on severity * number of records 
+		//TODO decide if we only want to show records lost over this amount..
 		if(data[i].records_lost > 100000000){
 			//console.log(data[i]);
 			top_breaches.push({entity: data[i].entity, alternative_name: data[i].alternative_name, year: data[i].year, records_lost: data[i].records_lost, organization: data[i].organization, breach_cause: data[i].breach_cause, records_rounded: data[i].records_rounded, severity: data[i].severity});
@@ -45,18 +46,23 @@ d3.csv("databreaches.csv", function(data) {
         width = 960 - margin.left -margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    //Define Color
+    //Define Color//TODO fix color
     var colors = d3.scaleOrdinal(d3.schemeCategory20);
+	/*
+	//TODO switch to this color scheme.
+		color = d3.scaleThreshold()
+    	.domain([1, 10, 50, 200, 500, 1000, 2000, 4000])
+		//d3.schemeGnBu[k]
+    	.range(d3.schemeOrRd[9]);
+	*/
  
- 	console.log(width);
-	console.log(height);
     //Define Scales   
 	var xScale = d3.scaleLinear()
-    	.domain([d3.min(data, function(d) {return d.year; }),d3.max(data, function(d) {return d.year; })]) //Need to redefine this after loading the data
+    	.domain([d3.min(data, function(d) {return d.year; }),d3.max(data, function(d) {return d.year; })]) 
    	 .range([0, width]);
 
 	 var yScale = d3.scaleLinear()
-   		.domain([0,d3.max(data, function(d) {return d.records_lost; })]) //Need to redfine this after loading the data
+   		.domain([0,d3.max(data, function(d) {console.log(d.severity); return d.severity; })]) 
     	.range([height, 0]);
 
     // var zoom = d3.zoom()
@@ -92,15 +98,15 @@ d3.csv("databreaches.csv", function(data) {
         .selectAll(".dot")
         .data(data)
         .enter().append("circle")
-        .attr("r", function(d) { return (Math.sqrt(d.records_lost)/.2)/5000; })
+        .attr("r", function(d) { return (Math.sqrt(d.records_lost)/.2)/5000; }) //TODO fix hardcoded scaling function...
         .attr("cx", function(d) {return xScale(d.year);})
-        .attr("cy", function(d) {return yScale(d.records_lost);})
+        .attr("cy", function(d) {return yScale(d.severity);})
         .style("fill", function (d) { return colors(d.severity); })
         .on("mouseover", function(d) {      
             tooltip.transition()        
                 .duration(200)      
                 .style("opacity", .9);      
-            tooltip.html(d.entity + "<br/>Population: "  + d.population + " Million<br/>GDP: $" + d.gdp + " Trillion<br/>EPC: " + d.epc + " Million BTUs<br/>Total: " + d.ec + " Trillion BTUs")   
+            tooltip.html(d.entity + "<br/>Organization Type: " + d.organization + "<br/>Year: "  + d.year + "<br/>Records Lost: " + d.records_lost + "<br/>Breach Cause: " + d.breach_cause + "<br/>Sensitivity of Data Loss: " + d.severity)   
                 .style("left", (d3.event.pageX) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px");    
         })                  
@@ -122,7 +128,7 @@ d3.csv("databreaches.csv", function(data) {
         .attr("class","text")
         .style("text-anchor", "start")
         .attr("x", function(d) {return xScale(d.year);})
-        .attr("y", function(d) {return yScale(d.sensitivity);})
+        .attr("y", function(d) {return yScale(d.severity);})
         .style("fill", "black")
         .text(function (d) {return d.entity; });
 
@@ -152,11 +158,11 @@ d3.csv("databreaches.csv", function(data) {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .attr("font-size", "12px")
-        .text("Size of Data Breach");
+        .text("Sensitivity of Data Lost");
 
     
      // draw legend colored rectangles
-	//TODO fix this later
+	//TODO fix this later - add key!!
 		/*
     svg.append("rect")
         .attr("x", width-250)
