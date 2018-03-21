@@ -21,6 +21,7 @@ d3.csv('databreaches.csv',function (data) {
     .append('option')
       .attr('value', function (d) { return d.text })
       .text(function (d) { return d.text ;})
+  
   body.append('br')
     
   var tooltip = d3.select("#top").append("div")	
@@ -178,8 +179,8 @@ d3.csv('databreaches.csv',function (data) {
   }*/
    function yChange(){
        var value = this.value;
-       d3.selectAll('circle') // move the circles
-      .transition().duration(1)
+       //d3.selectAll('circle') // move the circles
+       circles.transition().duration(1)
       .delay(function (d,i) { return i*10})
         .attr('cy',function (d) { if(d['breach_cause'] == value){return yScale(d["records_rounded"])}else if(value == 'all'){return yScale(d["records_rounded"])}else{return 0;} })
        .attr('cx',function (d) { if(d['breach_cause'] == value){return xScale(d["year"])}else if(value == 'all'){return xScale(d["year"])}else{return 0;} })

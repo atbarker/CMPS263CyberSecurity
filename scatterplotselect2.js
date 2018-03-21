@@ -13,8 +13,8 @@ d3.csv('databreaches.csv',function (data) {
   var span = body.append('span')
       .text('Select Sensitivity: ')
   var yInput = body.append('select')
-      .attr('id','ySelect')
-      .on('change',yChange)
+      .attr('id','radiusSelect')
+      .on('change',filter)
     .selectAll('option')
       .data(selectData)
       .enter()
@@ -58,7 +58,7 @@ d3.csv('databreaches.csv',function (data) {
     //.tickFormat(formatPercent)
     .ticks(5)
   // Circles
-  var circles = svg.selectAll('circle')
+  var circles2 = svg.selectAll('circle')
       .data(data)
       .enter()
     .append('circle')
@@ -156,10 +156,10 @@ d3.csv('databreaches.csv',function (data) {
       }  
    })
     
-    function yChange(){
+    function filter(){
        var stuff = this.value;
-       d3.selectAll('circle') // move the circles
-      .transition().duration(1)
+       //d3.selectAll('circle') // move the circles
+      circles2.transition().duration(1)
       .delay(function (d,i) { return i*10})
         .attr('cy',function (d) { if(d['severity'] == stuff){return yScale(d["impact"])}else if(stuff == 'all'){return yScale(d["impact"])}else{return 0;} })
        .attr('cx',function (d) { if(d['severity'] == stuff){return xScale(d["year"])}else if(stuff == 'all'){return xScale(d["year"])}else{return 0;} })
