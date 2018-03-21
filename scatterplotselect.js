@@ -37,6 +37,7 @@ d3.csv('databreaches.csv',function (data) {
   //var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
   var colorScale = d3.scaleSequential(d3["interpolateYlOrRd"])
     .domain([0, d3.max(data, function(d) { return d.severity; })]);
+	//.domain([0,6]);
   var xScale = d3.scaleLinear()
     .domain([2004, 2018])
     .range([0,w])
@@ -132,7 +133,35 @@ d3.csv('databreaches.csv',function (data) {
       .attr("class", "legend")
       .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
+	  
+// Add a legend for the color values.
+  var legend = svg.selectAll(".legend")
+      .data(colorScale.ticks(5).slice(1).reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(" + (w + 20) + "," + (20 + i * 20) + ")"; });
+
+  legend.append("rect")
+      .attr("width", 20)
+      .attr("height", 20)
+      .style("fill", colorScale);
+
+  legend.append("text")
+      .attr("x", 26)
+      .attr("y", 10)
+      .attr("dy", ".35em")
+      .text(String);
+
+  svg.append("text")
+      .attr("class", "label")
+      .attr("x", w + 20)
+      .attr("y", 10)
+      .attr("dy", ".35em")
+      .text("Severity");
+
+
   // draw legend colored rectangles
+	 /*
   legend.append("rect")
       .attr("x", w + 60)
       .attr("width", 18)
@@ -158,7 +187,17 @@ d3.csv('databreaches.csv',function (data) {
           return "5: Full Bank Account Details";
       }  
    })
-    
+    */
+	
+// Add a legend for the color values.
+  var legend = svg.selectAll(".legend")
+      .data(colorScale.ticks(5).slice(1).reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(" + (width + 20) + "," + (20 + i * 20) + ")"; });
+	  
+
+	  
 
   /*function yChange() {
     var value = this.value // get the new y value
