@@ -23,7 +23,7 @@ d3.csv('databreaches.csv',function (data) {
       .text(function (d) { return d.text ;})
   body.append('br')
     
-  var tooltip = d3.select("bottom").append("div")	
+  var tooltip = d3.select("#bottom").append("div")	
         .attr("class", "tooltip")				
         .style("opacity", 0);
 
@@ -105,7 +105,7 @@ d3.csv('databreaches.csv',function (data) {
     .append('text') // X-axis Label
       .attr('id','xAxisLabel')
       .attr('y',-10)
-      .attr('x',w)
+      .attr('x',300)
       .attr('dy','.71em')
       .style('text-anchor','end')
       .text('Year')
