@@ -11,13 +11,14 @@ d3.csv("databreaches.csv", function(data) {
 		d.breach_cause = d.breach_cause;
 		d.records_rounded = +d.records_rounded;
 		d.severity = +d.severity;
+        d.impact = +d.severity * +d.records_lost;
   	});
 	var top_breaches = [];
 	//console.log(data.length);
 	for (var i = 0; i < data.length; i++) {
 		//TODO create impact score metric based on severity * number of records 
 		//TODO decide if we only want to show records lost over this amount..
-		if(data[i].records_lost > 100000000){
+		if(data[i].records_lost > 10000000){
 			//console.log(data[i]);
 			top_breaches.push({entity: data[i].entity, alternative_name: data[i].alternative_name, year: data[i].year, records_lost: data[i].records_lost, organization: data[i].organization, breach_cause: data[i].breach_cause, records_rounded: data[i].records_rounded, severity: data[i].severity});
 		}
@@ -43,8 +44,12 @@ d3.csv("databreaches.csv", function(data) {
     //Define Margin
 	//console.log(data);
     var margin = {left: 80, right: 80, top: 50, bottom: 50 }, 
-        width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+
+        //width = 960 - margin.left - margin.right,
+        //height = 500 - margin.top - margin.bottom;
+
+        width = 1700 - margin.left -margin.right,
+        height = 700 - margin.top - margin.bottom;
 
     //Define Color//TODO fix color
     var colors = d3.scaleOrdinal(d3.schemeCategory20);
@@ -59,19 +64,21 @@ d3.csv("databreaches.csv", function(data) {
     //Define Scales  
 	//console.log(d3.min(data, function(d) {return d.year; })); 
 	var xScale = d3.scaleLinear()
-    	.domain([d3.min(data, function(d) {return d.year; }),d3.max(data, function(d) {return d.year;})]) 
-   	 .range([0, width]);
+    	//.domain([d3.min(data, function(d) {return d.year; }),d3.max(data, function(d) {return d.year;})]) 
+   	 //.range([0, width]);
+    	.domain(d3.extent(data, function(d) {return d.year;})) 
+   	 .range([0, width]).nice();
 
 	 //console.log(d3.max(data, function(d) {return d.records_lost; }));
 	 var yScale = d3.scaleLinear()
-   		.domain([0,d3.max(data, function(d) {return d.records_lost; })]) 
-    	.range([height, 0]);
+   		.domain([0,d3.max(data, function(d) {return d.records_rounded; })]) 
+    	.range([height, 0]).nice();
 
-    // var zoom = d3.zoom()
-    //     .x(xScale)
+    //var zoom = d3.zoom()
+     //    .x(xScale)
     //     .y(yScale)
-    //     .scaleExtent([1, 32])
-    //     .on("zoom", zoomed);
+     //    .scaleExtent([1, 32])
+      //   .on("zoom", zoomed);
 
     //Define SVG
     var svg = d3.select("#bottom")
@@ -89,10 +96,10 @@ d3.csv("databreaches.csv", function(data) {
       
     //Define Axis
     var xAxis = d3.axisBottom(xScale).tickPadding(2);
-    var yAxis = d3.axisLeft(yScale).tickPadding(2);
+    var yAxis = d3.axisLeft(yScale).tickPadding(4);
     // Define domain for xScale and yScale
     //xScale.domain([-width /2, width/2]);
-    //yScale.domain([-height /2, height/2]);
+    //yScale.domain([0,d.max(data, function(d) {return d.records_rounded;})]);
     
     //Draw Scatterplot
     var g = svg.append("g")
@@ -100,15 +107,15 @@ d3.csv("databreaches.csv", function(data) {
         .selectAll(".dot")
         .data(data)
         .enter().append("circle")
-        .attr("r", function(d) { return (Math.sqrt(d.records_lost)/.2)/5000; }) //TODO fix hardcoded scaling function...
+        .attr("r", function(d) { return (Math.sqrt(d.records_rounded)/10); }) //TODO fix hardcoded scaling function...
         .attr("cx", function(d) {return xScale(d.year);})
-        .attr("cy", function(d) {return yScale(d.records_lost);})
+        .attr("cy", function(d) {return yScale(d.records_rounded);})
         .style("fill", function (d) { return colors(d.severity); })
         .on("mouseover", function(d) {      
             tooltip.transition()        
                 .duration(200)      
                 .style("opacity", .9);      
-            tooltip.html(d.entity + "<br/>Organization Type: " + d.organization + "<br/>Year: "  + d.year + "<br/>Records Lost: " + d.records_lost + "<br/>Breach Cause: " + d.breach_cause + "<br/>Sensitivity of Data Loss: " + d.severity)   
+            tooltip.html(d.entity + "<br/>Organization Type: " + d.organization + "<br/>Year: "  + d.year + "<br/>Records Lost: " + d.records_rounded + "<br/>Breach Cause: " + d.breach_cause + "<br/>Sensitivity of Data Loss: " + d.severity)   
                 .style("left", (d3.event.pageX) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px");    
         })                  
@@ -130,7 +137,7 @@ d3.csv("databreaches.csv", function(data) {
         .attr("class","text")
         .style("text-anchor", "start")
         .attr("x", function(d) {return xScale(d.year);})
-        .attr("y", function(d) {return yScale(d.records_lost);})
+        .attr("y", function(d) {return yScale(d.records_rounded);})
         .style("fill", "black")
         .text(function (d) {return d.entity; });
 
@@ -155,8 +162,9 @@ d3.csv("databreaches.csv", function(data) {
         .append("text")
         .attr("class", "label")
         .attr("transform", "rotate(-90)")
-        .attr("y", -50)
-        .attr("x", -50)
+        .attr("transform", "translate(30,0)")
+        .attr("y", -0)
+        .attr("x", -0)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .attr("font-size", "12px")
@@ -230,8 +238,8 @@ d3.csv("databreaches.csv", function(data) {
             .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         svg.select(".text")
             .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-    }
-    */
+    }*/
+    
     //some code to handle scaling the circles
     /*
     svg.selectAll(".dots circle").attr("r", function(){
