@@ -22,22 +22,21 @@ d3.csv("databreaches.csv", function(d) {
         height = 500 - margin.top - margin.bottom;
 
     //Define Color
-    var colors = d3.scale.category20();
+     var colors = d3.scaleOrdinal(d3.schemeCategory20);
  
     //Define Scales   
-    var xScale = d3.scale.linear()
+    var xScale = d3.scaleLinear()
         .domain([2004,2017]) //Need to redefine this after loading the data
         .range([0, width]);
 
-    var yScale = d3.scale.linear()
+    var yScale = d3.scaleLinear()
         .domain([0,d3.max(data, function(d){return d.records_rounded;})]) //Need to redfine this after loading the data
         .range([height, 0]);
 
-    var zoom = d3.behavior.zoom()
-        .x(xScale)
-        .y(yScale)
+	var zoom = d3.zoom()
         .scaleExtent([1, 32])
         .on("zoom", zoomed);
+	
 
     //Define SVG
     var svg = d3.select("body")
