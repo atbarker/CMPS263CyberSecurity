@@ -26,7 +26,7 @@ d3.csv("databreaches.csv", function(d) {
  
     //Define Scales   
     var xScale = d3.scaleLinear()
-        .domain([2004,2017]) //Need to redefine this after loading the data
+        .domain([2004,2018]) //Need to redefine this after loading the data
         .range([0, width]);
 
     var yScale = d3.scaleLinear()

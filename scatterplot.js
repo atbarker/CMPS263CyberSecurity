@@ -136,62 +136,6 @@ d3.csv("databreaches.csv", function(d) {
         .text("Records lost (x1000)");
 
     
-     // draw legend colored rectangles
-    /*svg.append("rect")
-        .attr("x", width-250)
-        .attr("y", height-190)
-        .attr("width", 220)
-        .attr("height", 180)
-        .attr("fill", "lightgrey")
-        .style("stroke-size", "1px");
-
-    svg.append("circle")
-        .attr("r", 5)
-        .attr("cx", width-100)
-        .attr("cy", height-175)
-        .style("fill", "white");
-    
-    svg.append("circle")
-        .attr("r", 15.8)
-        .attr("cx", width-100)
-        .attr("cy", height-150)
-        .style("fill", "white");
-
-    svg.append("circle")
-        .attr("r", 50)
-        .attr("cx", width-100)
-        .attr("cy", height-80)
-        .style("fill", "white");
-
-    svg.append("text")
-        .attr("class", "label")
-        .attr("x", width -150)
-        .attr("y", height-172)
-        .style("text-anchor", "end")
-        .text(" 1 Million BTUs");
-
-    svg.append("text")
-        .attr("class", "label")
-        .attr("x", width -150)
-        .attr("y", height-147)
-        .style("text-anchor", "end")
-        .text(" 10 Million BTUs");
-
-    svg.append("text")
-        .attr("class", "label")
-        .attr("x", width -150)
-        .attr("y", height-77)
-        .style("text-anchor", "end")
-        .text(" 100 Million BTUs");
-    
-    svg.append("text")
-        .attr("class", "label")
-        .attr("x", width -150)
-        .attr("y", height-15)
-        .style("text-anchor", "middle")
-        .style("fill", "Green") 
-        .attr("font-size", "16px")
-        .text("Total Energy Consumption");*/
       // draw legend
   var legend = svg.selectAll(".legend")
       .data(colors.domain())
