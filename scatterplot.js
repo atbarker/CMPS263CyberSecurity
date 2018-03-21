@@ -13,7 +13,8 @@ d3.csv("databreaches.csv", function(d) {
         sector: d.organization,
         cause: d.breach_cause,
         records_rounded : +d.records_rounded,
-        severity : +d.severity
+        severity : +d.severity,
+        impact : +d.severity * +d.records_lost
     };
 }, function(data){
     //Define Margin
