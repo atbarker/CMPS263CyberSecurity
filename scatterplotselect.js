@@ -1,6 +1,6 @@
 d3.csv('databreaches.csv',function (data) {
 // CSV section
-  var body = d3.select('body')
+  var body = d3.select('#top')
   var selectData = [ { "text" : "all" },
                      { "text" : "inside job" },
                      { "text" : "hacked" },
@@ -23,12 +23,12 @@ d3.csv('databreaches.csv',function (data) {
       .text(function (d) { return d.text ;})
   body.append('br')
     
-  var tooltip = d3.select("body").append("div")	
+  var tooltip = d3.select("#top").append("div")	
         .attr("class", "tooltip")				
         .style("opacity", 0);
 
   // Variables
-  var body = d3.select('body')
+  var body = d3.select('#top')
   var margin = { top: 50, right: 310, bottom: 50, left: 80 }
   var h = 500 - margin.top - margin.bottom
   var w = 1700 - margin.left - margin.right
