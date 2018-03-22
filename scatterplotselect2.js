@@ -53,7 +53,7 @@ d3.csv('databreaches.csv',function (data) {
   // X-axis
   var xAxis = d3.axisBottom(xScale)
     //.tickFormat(formatPercent)
-    .ticks(14)
+    .ticks(14).tickFormat(d3.format("d"));
   // Y-axis
   var yAxis = d3.axisLeft(yScale)
     //.tickFormat(formatPercent)
