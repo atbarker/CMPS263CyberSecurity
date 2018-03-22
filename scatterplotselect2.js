@@ -66,6 +66,8 @@ d3.csv('databreaches.csv',function (data) {
       .attr('cx',function (d) { return xScale(d['year']) })
       .attr('cy',function (d) { return yScale(d['impact']) })
       .attr('r', function(d) { return Math.sqrt(d['records_rounded'])/.2/100; })
+      .attr('stroke','gray')
+      .attr('stroke-width',1)
       .attr('fill',function (d) { return colorScale(d.severity); })
       .on('mouseover', function () {
         d3.select(this)
