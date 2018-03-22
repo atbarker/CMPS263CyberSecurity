@@ -53,7 +53,7 @@ d3.csv('databreaches.csv',function (data) {
   // X-axis
   var xAxis = d3.axisBottom(xScale)
     //.tickFormat(formatPercent)
-    .ticks(5)
+    .ticks(14).tickFormat(d3.format("d"));
   // Y-axis
   var yAxis = d3.axisLeft(yScale)
     //.tickFormat(formatPercent)
@@ -66,6 +66,8 @@ d3.csv('databreaches.csv',function (data) {
       .attr('cx',function (d) { return xScale(d['year']) })
       .attr('cy',function (d) { return yScale(d['impact']) })
       .attr('r', function(d) { return Math.sqrt(d['records_rounded'])/.2/100; })
+      .attr('stroke','gray')
+      .attr('stroke-width',1)
       .attr('fill',function (d) { return colorScale(d.severity); })
       .on('mouseover', function () {
         d3.select(this)
@@ -102,41 +104,71 @@ d3.csv('databreaches.csv',function (data) {
       .attr('id','xAxis')
       .attr('transform', 'translate(0,' + h + ')')
       .call(xAxis)
-    .append('text') // X-axis Label
-      .attr('id','xAxisLabel')
-      .attr('y',-10)
-      .attr('x',300)
-      .attr('dy','.71em')
-      .style('text-anchor','end')
-      .text('Year')
+    
+    svg.append("text")             
+      .attr("transform",
+            "translate(" + (w/2) + " ," + 
+                           (h + margin.top + -5) + ")")
+      .style("text-anchor", "middle")
+      .text("Year");
   // Y-axis
   svg.append('g')
       .attr('class','axis')
       .attr('id','yAxis')
-      .call(yAxis)
-    .append('text') // y-axis Label
-      .attr('id', 'yAxisLabel')
-      .attr('transform','rotate(-90)')
-      .attr('x',0)
-      .attr('y',5)
-      .attr('dy','.71em')
-      .style('text-anchor','end')
-      .text('Impact (severity * number of records)')
+      .call(yAxis);
+    
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (h / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Impact of Breach (Severity * Number of Records)"); 
     
     
   var legend = svg.selectAll(".legend")
-      .data(colorScale.domain())
+      .data(colorScale.ticks(5).slice(1).reverse())
     .enter().append("g")
       .attr("class", "legend")
       .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
+	  //console.log(colorScale);
+// Add a legend for the color values.
+	  /*
+	  console.log(colorScale.ticks(5).slice(1).reverse()); 
+  var legend = svg.selectAll(".legend")
+      .data(colorScale.ticks(5).slice(1).reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(" + (w + 20) + "," + (20 + i * 20) + ")"; });
+
+  legend.append("rect")
+      .attr("width", 20)
+      .attr("height", 20)
+      .style("fill", colorScale);
+
+  legend.append("text")
+      .attr("x", 26)
+      .attr("y", 10)
+      .attr("dy", ".35em")
+      .text(String);
+
+  svg.append("text")
+      .attr("class", "label")
+      .attr("x", w + 20)
+      .attr("y", 10)
+      .attr("dy", ".35em")
+      .text("Severity");
+	  */
+
   // draw legend colored rectangles
+	 
   legend.append("rect")
       .attr("x", w + 60)
       .attr("width", 18)
       .attr("height", 18)
       .style("fill", colorScale);
-
+	 
   // draw legend text
   legend.append("text")
       .attr("x", w + 80)
@@ -156,6 +188,14 @@ d3.csv('databreaches.csv',function (data) {
           return "5: Full Bank Account Details";
       }  
    })
+    
+// Add a legend for the color values.
+  var legend = svg.selectAll(".legend")
+      .data(colorScale.ticks(5).slice(1).reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(" + (width + 20) + "," + (20 + i * 20) + ")"; });
+	  
     
     function filter(){
        var stuff = this.value;
