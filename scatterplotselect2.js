@@ -104,26 +104,26 @@ d3.csv('databreaches.csv',function (data) {
       .attr('id','xAxis')
       .attr('transform', 'translate(0,' + h + ')')
       .call(xAxis)
-    .append('text') // X-axis Label
-      .attr('id','xAxisLabel')
-      .attr('y',-10)
-      .attr('x',300)
-      .attr('dy','.71em')
-      .style('text-anchor','end')
-      .text('Year')
+    
+    svg.append("text")             
+      .attr("transform",
+            "translate(" + (w/2) + " ," + 
+                           (h + margin.top + -5) + ")")
+      .style("text-anchor", "middle")
+      .text("Year");
   // Y-axis
   svg.append('g')
       .attr('class','axis')
       .attr('id','yAxis')
-      .call(yAxis)
-    .append('text') // y-axis Label
-      .attr('id', 'yAxisLabel')
-      .attr('transform','rotate(-90)')
-      .attr('x',0)
-      .attr('y',5)
-      .attr('dy','.71em')
-      .style('text-anchor','end')
-      .text('Impact (severity * number of records)')
+      .call(yAxis);
+    
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (h / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Impact of Breach (Severity * Number of Records)"); 
     
     
   var legend = svg.selectAll(".legend")
