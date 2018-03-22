@@ -1,0 +1,78 @@
+body {
+  font: 13px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.dot {
+  stroke: #000;
+}
+
+/*Add Tooltip Type here*/
+div.tooltip {
+  position: absolute;
+  text-align: left;
+  width: 160px;
+  height: 250px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-left:40px;
+  font-weight: 200;
+  font-size: 14px;
+}
+
+text {
+  cursor: default;
+}
+
+h1 {
+  font-weight: 400;
+}
+
+#chart {
+  height: 506px;
+}
+
+text {
+  font-size: 10px;
+}
+
+/* stying the table */
+#credits{
+    background-color: #C0C5CE;
+    width: 1000px;
+    position: relative;
+    left: 25px;
+}
+
+th, td{
+  width: 420px;
+}
+
+#header{
+    font-size: 16px;
+}
+
+.lastcolumn{
+    width: 250px;
+}
+
+.firstcolumn{
+    width: 250px;
+}
+.secondcolumn{
+    width: 500px;
+}
